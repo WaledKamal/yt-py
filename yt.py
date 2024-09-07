@@ -6,7 +6,7 @@ import subprocess
 
 def download_video(url, quality, output_path='./downloads'):
     ydl_opts = {
-        'format': quality,  # Set quality based on user input
+        'format': quality,  # Set quality based on user input 
         'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),  # Output path template
     }
     
