@@ -1,0 +1,16 @@
+{
+  "name": "yt-py",
+  "version": "1.0.0",
+  "description": "This is a Python script that uses the `yt-dlp` library to download YouTube videos and playlists. The script allows users to choose the desired video quality and automatically opens the download folder upon completion, supporting both Windows and Linux.",
+  "main": "yt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^10.2.1",
+    "open": "^10.1.0"
+  }
+}
