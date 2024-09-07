@@ -38,7 +38,6 @@ function isPlaylist(url, callback) {
             callback(false);
             return;
         }
-
         try {
             const info = JSON.parse(stdout);
             if (info.entries && info.entries.length > 1) {
