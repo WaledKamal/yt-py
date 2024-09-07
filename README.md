@@ -19,5 +19,5 @@ This is a Python script that uses the `yt-dlp` library to download YouTube video
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/waledkamal/yt-py.git
+   cd yt-py
