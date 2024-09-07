@@ -1,12 +1,9 @@
 import yt_dlp
 import os
-import sys
-import platform
-import subprocess
 
 def download_video(url, quality, output_path='./downloads'):
     ydl_opts = {
-        'format': quality,  # Set quality based on user input 
+        'format': quality,  # Set quality based on user input
         'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),  # Output path template
     }
     
@@ -25,17 +22,20 @@ def download_playlist(url, quality, output_path='./downloads'):
         ydl.download([url])
 
 
-def open_folder(path):
-    if platform.system() == "Windows":
-        os.startfile(path)  # Open folder on Windows
-    elif platform.system() == "Linux":
-        subprocess.Popen(['xdg-open', path])  # Open folder on Linux
-    else:
-        print(f"Opening folder not supported on {platform.system()}")
+def download_facebook_video(url, quality, output_path='./downloads'):
+    ydl_opts = {
+        'format': quality,  # Set quality based on user input
+        'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),  # Output path template
+        'extract_flat': False,  # Download actual video, not just metadata
+        'noplaylist': True,  # Ensure only a single video downloads
+    }
+    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([url])
 
 
 if __name__ == "__main__":
-    url = input("Enter the URL of the video or playlist: ")
+    url = input("Enter the URL of the video or playlist (YouTube/Facebook): ")
     
     # Create output directory if it doesn't exist
     output_path = './downloads'
@@ -67,15 +67,15 @@ if __name__ == "__main__":
         print("Invalid choice. Defaulting to best quality.")
         quality = 'best'
     
-    # Check if it's a playlist or a single video
-    is_playlist = input("Is this a playlist? (y/n): ").strip().lower() == 'y'
-    
-    if is_playlist:
-        download_playlist(url, quality, output_path)
+    # Determine if the URL is for a playlist, video, or Facebook
+    if 'facebook.com' in url:
+        download_facebook_video(url, quality, output_path)
     else:
-        download_video(url, quality, output_path)
+        is_playlist = input("Is this a playlist? (y/n): ").strip().lower() == 'y'
+        
+        if is_playlist:
+            download_playlist(url, quality, output_path)
+        else:
+            download_video(url, quality, output_path)
     
     print("Download completed!")
-    
-    # Open the folder after download
-    open_folder(output_path)
